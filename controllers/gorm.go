@@ -2,6 +2,6 @@ package controllers
 
 import "github.com/jinzhu/gorm"
 
-type InDB struct {
-	DB *gorm.DB
+type Connection struct {
+	Query *gorm.DB
 }

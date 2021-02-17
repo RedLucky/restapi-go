@@ -8,13 +8,13 @@ import (
 )
 
 // to get one data with {id}
-func (idb *InDB) GetTradeHistory(c *gin.Context) {
+func (m *Connection) GetTradeHistory(c *gin.Context) {
 	var (
 		trade  models.TradeHistory
 		result gin.H
 	)
 	id := c.Param("id")
-	if err := idb.DB.Where("id = ?", id).First(&trade).Error; err != nil {
+	if err := m.Query.Where("id = ?", id).First(&trade).Error; err != nil {
 		result = gin.H{
 			"result": err.Error(),
 			"count":  0,
