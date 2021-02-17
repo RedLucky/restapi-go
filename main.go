@@ -29,5 +29,8 @@ func main() {
 	}) */
 
 	r.GET("/trade/:id", inDB.GetTradeHistory)
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(404, gin.H{"code": 404, "message": "Page not found"})
+	})
 	r.Run(":3000")
 }
