@@ -9,7 +9,7 @@ import (
 
 func main() {
 	db := config.DBInit()
-	inDB := &controllers.InDB{DB: db}
+	inDB := &controllers.Connection{Query: db}
 	r := gin.Default()
 
 	/* r.GET("/", func(c *gin.Context) {
