@@ -9,7 +9,7 @@ import (
 
 func main() {
 	db := config.DBInit()
-	inDB := &controllers.Connection{Query: db}
+	controller := &controllers.Connection{Query: db}
 	r := gin.Default()
 
 	/* r.GET("/", func(c *gin.Context) {
@@ -28,9 +28,18 @@ func main() {
 
 	}) */
 
-	r.GET("/trade/:id", inDB.GetTradeHistory)
+	v1 := r.Group("/trade")
+	{
+		v1.GET("/:id", controller.GetTradeById)
+		v1.GET("", controller.GetTradeHistory)
+		v1.POST("", controller.AddTrade)
+		v1.PUT("", controller.EditTrade)
+		r.DELETE("/:id", controller.DeleteTrade)
+	}
+
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(404, gin.H{"code": 404, "message": "Page not found"})
 	})
+
 	r.Run(":3000")
 }
